@@ -86,6 +86,12 @@ body {
     align-items: center;
   }
 
+  .content {  
+    &__items {
+      display: block;
+    }
+  }
+
   .content__title {
     display: flex;
     align-items: center;

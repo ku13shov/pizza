@@ -1,9 +1,11 @@
-import NotFoundBlock from "../components/NotFoundBlock/NotFoundBlock";
+import NotFoundBlock from '../components/NotFoundBlock/NotFoundBlock';
 
 function NotFound() {
-    return ( 
-        <NotFoundBlock />
-     );
+    return (
+        <div className="container">
+            <NotFoundBlock />
+        </div>
+    );
 }
 
 export default NotFound;
