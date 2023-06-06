@@ -50,4 +50,26 @@
       }
     }
   }
+
+  @media (max-width: 1300px) {
+    &__label {
+      b {
+        width: max-content;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 15px;
+
+    &__label {
+      b {
+        display: none;
+      }
+
+      span {
+        font-size: 12px;
+      }
+    }
+  }
 }

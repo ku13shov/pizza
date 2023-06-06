@@ -28,4 +28,30 @@
       }
     }
   }
+
+  @media (max-width: 1300px) {
+    ul {
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-right: 20px;
+
+      li {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    overflow: auto;
+    padding-bottom: 10px;
+
+    ul {
+      flex-wrap: nowrap;
+      margin-right: 0px;
+
+      li {
+        padding: 8px 20px;
+      }
+    }
+  }
 }

@@ -29,4 +29,22 @@
       color: #7b7b7b;
     }
   }
+
+  @media (max-width: 650px) {
+    .container {
+      flex-direction: column;
+    }
+
+    &__cart {
+      margin-top: 20px;
+    }
+
+    &__logo {
+      div {
+        max-width: 170px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
 }
