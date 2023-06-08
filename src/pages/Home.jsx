@@ -4,6 +4,7 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
+import Pagination from '../components/Pagination/Pagination';
 
 function Home() {
     const [pizzas, setPizzas] = useState([]);
@@ -13,11 +14,12 @@ function Home() {
         sortName: 'популярности',
         sortTitle: 'rating',
     });
+    const [pageNumber, setPageNumber] = useState(1);
 
     useEffect(() => {
         setIsLoading(true);
         fetch(
-            `https://647de329af984710854a8ac9.mockapi.io/items?${catIndex === 0 ? '' : `category=${catIndex}`}&sortBy=${selectedSort.sortTitle}&order=asc`,
+            `https://647de329af984710854a8ac9.mockapi.io/items?${catIndex === 0 ? '' : `category=${catIndex}`}&sortBy=${selectedSort.sortTitle}&order=asc&p=${pageNumber}&l=4`,
         )
             .then((res) => res.json())
             .then((data) => {
@@ -26,7 +28,7 @@ function Home() {
             });
 
         window.scrollTo(0, 0);
-    }, [catIndex, selectedSort]);
+    }, [catIndex, selectedSort, pageNumber]);
 
     return (
         <div className="container">
@@ -37,13 +39,15 @@ function Home() {
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {isLoading
-                    ? [...new Array(6)].map((_, i) => {
+                    ? [...new Array(4)].map((_, i) => {
                           return <Skeleton key={i} />;
                       })
                     : pizzas.map((obj) => {
                           return <PizzaBlock key={obj.id} {...obj} />;
                       })}
             </div>
+
+            <Pagination setPageNumber={setPageNumber} />
         </div>
     );
 }
