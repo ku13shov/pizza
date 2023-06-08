@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
+import { SearchContext } from '../App';
 
 function Home() {
     const [pizzas, setPizzas] = useState([]);
@@ -15,11 +16,14 @@ function Home() {
         sortTitle: 'rating',
     });
     const [pageNumber, setPageNumber] = useState(1);
+    const [searchValue] = useContext(SearchContext);
 
     useEffect(() => {
         setIsLoading(true);
         fetch(
-            `https://647de329af984710854a8ac9.mockapi.io/items?${catIndex === 0 ? '' : `category=${catIndex}`}&sortBy=${selectedSort.sortTitle}&order=asc&p=${pageNumber}&l=4`,
+            `https://647de329af984710854a8ac9.mockapi.io/items?${
+                catIndex === 0 ? '' : `category=${catIndex}`
+            }&title=${searchValue}&sortBy=${selectedSort.sortTitle}&order=asc&p=${pageNumber}&l=4`,
         )
             .then((res) => res.json())
             .then((data) => {
@@ -28,7 +32,7 @@ function Home() {
             });
 
         window.scrollTo(0, 0);
-    }, [catIndex, selectedSort, pageNumber]);
+    }, [catIndex, selectedSort, pageNumber, searchValue]);
 
     return (
         <div className="container">

@@ -24,3 +24,18 @@
     transform: translateY(-50%);
     opacity: .3;
 }
+
+.close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .3;
+    cursor: pointer;
+
+    &:hover {
+        opacity: .7;
+    }
+}
