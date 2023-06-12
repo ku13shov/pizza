@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -6,17 +7,24 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
 import { SearchContext } from '../App';
+import { setCatIndex, setSelectedSort } from '../redux/filterSlice';
 
 function Home() {
+    const {catIndex, sort:selectedSort } = useSelector((state) => state.filter);
+    const dispatch = useDispatch();
+
     const [pizzas, setPizzas] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [catIndex, setCatIndex] = useState(0);
-    const [selectedSort, isSelectedSort] = useState({
-        sortName: 'популярности',
-        sortTitle: 'rating',
-    });
     const [pageNumber, setPageNumber] = useState(1);
     const [searchValue] = useContext(SearchContext);
+
+    const onClickCatHandler = (i) => {
+        dispatch(setCatIndex(i));
+    }
+
+    const isSelectedSortHandler = (obj) => {
+        dispatch(setSelectedSort(obj));
+    }
 
     useEffect(() => {
         setIsLoading(true);
@@ -37,8 +45,8 @@ function Home() {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories catIndex={catIndex} onClickCat={(i) => setCatIndex(i)} />
-                <Sort selectedSort={selectedSort} onClickSort={(obj) => isSelectedSort(obj)} />
+                <Categories catIndex={catIndex} onClickCat={(i) => onClickCatHandler(i)} />
+                <Sort onClickSort={(obj) => isSelectedSortHandler(obj)} />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">

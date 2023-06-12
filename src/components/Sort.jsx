@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-function Sort({ selectedSort, onClickSort }) {
+import { setSelectedSort } from '../redux/filterSlice';
+
+const sortNames = [
+    { sortName: 'популярности', sortTitle: 'rating' },
+    { sortName: 'цене', sortTitle: 'price' },
+    { sortName: 'алфавиту', sortTitle: 'title' },
+];
+
+function Sort() {
     const [open, isOpen] = useState(false);
-
-    // const sortNames = ['популярности', 'цене', 'алфавиту'];
-    const sortNames = [
-        { sortName: 'популярности', sortTitle: 'rating' },
-        { sortName: 'цене', sortTitle: 'price' },
-        { sortName: 'алфавиту', sortTitle: 'title' },
-    ];
-    // const sortBy = sortNames[selectedSort].sortName;
+    const selectedSort = useSelector((state) => state.filter.sort);
+    const dispatch = useDispatch();
 
     const selectSortNameHandler = (obj) => {
-        onClickSort(obj);
+        dispatch(setSelectedSort(obj));
         isOpen(false);
     };
 
