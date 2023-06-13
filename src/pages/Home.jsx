@@ -8,15 +8,14 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
 import { SearchContext } from '../App';
-import { setCatIndex, setSelectedSort } from '../redux/filterSlice';
+import { setCatIndex, setSelectedSort, setCurrentPage } from '../redux/filterSlice';
 
 function Home() {
-    const { catIndex, sort: selectedSort } = useSelector((state) => state.filter);
+    const { catIndex, sort: selectedSort, currentPage: pageNumber } = useSelector((state) => state.filter);
     const dispatch = useDispatch();
 
     const [pizzas, setPizzas] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [pageNumber, setPageNumber] = useState(1);
     const [searchValue] = useContext(SearchContext);
 
     const onClickCatHandler = (i) => {
@@ -27,19 +26,12 @@ function Home() {
         dispatch(setSelectedSort(obj));
     };
 
+    const setPageNumber = (i) => {
+        dispatch(setCurrentPage(i));
+    };
+
     useEffect(() => {
         setIsLoading(true);
-        // fetch(
-        //     `https://647de329af984710854a8ac9.mockapi.io/items?${
-        //         catIndex === 0 ? '' : `category=${catIndex}`
-        //     }&title=${searchValue}&sortBy=${selectedSort.sortTitle}&order=asc&p=${pageNumber}&l=4`,
-        // )
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         setPizzas(data);
-        //         setIsLoading(false);
-        //     });
-
         axios
             .get(
                 `https://647de329af984710854a8ac9.mockapi.io/items?${
