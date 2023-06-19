@@ -22,6 +22,7 @@ function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isUrlParams = useRef(false);
+    const isMounted = useRef(false);
 
     const [pizzas, setPizzas] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +55,22 @@ function Home() {
     const setPageNumber = (i) => {
         dispatch(setCurrentPage(i));
     };
+    
+    // Если изменили параметры и был первый рендер
+    useEffect(() => {
+        if (isMounted.current) {
+            const url = qs.stringify({
+                sort: selectedSort.sortTitle,
+                catIndex,
+                pageNumber,
+            });
+    
+            navigate(`?${url}`);
+        }
+        isMounted.current = true;
+    }, [catIndex, selectedSort, pageNumber]);
 
+    // Если был первый рендер, то проверяем URL-параметры и сохраняем в редакс
     useEffect(() => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1));
@@ -69,6 +85,7 @@ function Home() {
         }
     }, []);
 
+    // Если был первый рендер, то запрашиваем пиццы
     useEffect(() => {
         window.scrollTo(0, 0);
 
@@ -79,15 +96,6 @@ function Home() {
         isUrlParams.current = false;
     }, [catIndex, selectedSort, pageNumber, searchValue]);
 
-    useEffect(() => {
-        const url = qs.stringify({
-            sort: selectedSort.sortTitle,
-            catIndex,
-            pageNumber,
-        });
-
-        navigate(`?${url}`);
-    }, [catIndex, selectedSort, pageNumber]);
 
     return (
         <div className="container">
