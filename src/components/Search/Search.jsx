@@ -5,9 +5,10 @@ import styles from './Search.module.scss';
 import { SearchContext } from '../../App';
 
 function Search() {
-    const [setSearchValue] = useContext(SearchContext);
+    const {setSearchValue} = useContext(SearchContext);
     const [localSearchValue, setLocalSearchValue] = useState('');
     const inputRef = useRef();
+    console.log(useContext(SearchContext));
 
     const clearAndFocusInput = () => {
         setSearchValue('');

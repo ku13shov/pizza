@@ -26,7 +26,7 @@ function Home() {
 
     const [pizzas, setPizzas] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [searchValue] = useContext(SearchContext);
+    const {searchValue} = useContext(SearchContext);
 
     const fetchPizzas = () => {
         setIsLoading(true);
