@@ -8,7 +8,6 @@ function Search() {
     const {setSearchValue} = useContext(SearchContext);
     const [localSearchValue, setLocalSearchValue] = useState('');
     const inputRef = useRef();
-    console.log(useContext(SearchContext));
 
     const clearAndFocusInput = () => {
         setSearchValue('');

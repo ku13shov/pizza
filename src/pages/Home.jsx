@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import qs from 'qs';
 
 import Categories from '../components/Categories';
@@ -11,6 +10,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
 import { SearchContext } from '../App';
 import { setCatIndex, setSelectedSort, setCurrentPage, setUrlParams } from '../redux/filterSlice';
+import { fetchPizza } from '../redux/pizzaSlice';
 import { sortNames } from '../components/Sort';
 
 function Home() {
@@ -19,29 +19,21 @@ function Home() {
         sort: selectedSort,
         currentPage: pageNumber,
     } = useSelector((state) => state.filter);
+
+    const {items: pizzas, status } = useSelector((state) => state.pizza);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const isUrlParams = useRef(false);
     const isMounted = useRef(false);
 
-    const [pizzas, setPizzas] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const {searchValue} = useContext(SearchContext);
+    const { searchValue } = useContext(SearchContext);
 
-    const fetchPizzas = () => {
-        setIsLoading(true);
-        axios
-            .get(
-                `https://647de329af984710854a8ac9.mockapi.io/items?${
-                    catIndex === 0 ? '' : `category=${catIndex}`
-                }&title=${searchValue}&sortBy=${
-                    selectedSort.sortTitle
-                }&order=asc&p=${pageNumber}&l=4`,
-            )
-            .then((res) => {
-                setPizzas(res.data);
-                setIsLoading(false);
-            });
+    const getPizzas = async () => {
+        dispatch(fetchPizza({ catIndex, searchValue, selectedSort, pageNumber }));
+
+        window.scrollTo(0, 0);
     };
 
     const onClickCatHandler = (i) => {
@@ -55,7 +47,7 @@ function Home() {
     const setPageNumber = (i) => {
         dispatch(setCurrentPage(i));
     };
-    
+
     // Если изменили параметры и был первый рендер
     useEffect(() => {
         if (isMounted.current) {
@@ -64,7 +56,7 @@ function Home() {
                 catIndex,
                 pageNumber,
             });
-    
+
             navigate(`?${url}`);
         }
         isMounted.current = true;
@@ -90,12 +82,11 @@ function Home() {
         window.scrollTo(0, 0);
 
         if (!isUrlParams.current) {
-            fetchPizzas();
+            getPizzas();
         }
 
         isUrlParams.current = false;
     }, [catIndex, selectedSort, pageNumber, searchValue]);
-
 
     return (
         <div className="container">
@@ -105,7 +96,7 @@ function Home() {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {isLoading
+                {status === 'loading'
                     ? [...new Array(4)].map((_, i) => {
                           return <Skeleton key={i} />;
                       })
