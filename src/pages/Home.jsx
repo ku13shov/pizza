@@ -20,7 +20,7 @@ function Home() {
         currentPage: pageNumber,
     } = useSelector((state) => state.filter);
 
-    const {items: pizzas, status } = useSelector((state) => state.pizza);
+    const { items: pizzas, status } = useSelector((state) => state.pizza);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -95,15 +95,27 @@ function Home() {
                 <Sort onClickSort={(obj) => isSelectedSortHandler(obj)} />
             </div>
             <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-                {status === 'loading'
-                    ? [...new Array(4)].map((_, i) => {
-                          return <Skeleton key={i} />;
-                      })
-                    : pizzas.map((obj) => {
-                          return <PizzaBlock key={obj.id} {...obj} />;
-                      })}
-            </div>
+
+            {status === 'error' ? (
+                <div className='content__error'>
+                    <h2>
+                        Произошла ошибка 😕
+                    </h2>
+                    <p>
+                        К сожалению не удалось получить питсы. Попробуйте повторить попытку.
+                    </p>
+                </div>
+            ) : (
+                <div className="content__items">
+                    {status === 'loading'
+                        ? [...new Array(4)].map((_, i) => {
+                              return <Skeleton key={i} />;
+                          })
+                        : pizzas.map((obj) => {
+                              return <PizzaBlock key={obj.id} {...obj} />;
+                          })}
+                </div>
+            )}
 
             <Pagination setPageNumber={setPageNumber} />
         </div>
