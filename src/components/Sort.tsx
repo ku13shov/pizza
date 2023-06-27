@@ -9,20 +9,20 @@ export const sortNames = [
     { sortName: 'алфавиту', sortTitle: 'title' },
 ];
 
-function Sort() {
+const Sort: React.FC = () => {
     const [open, isOpen] = useState(false);
-    const selectedSort = useSelector((state) => state.filter.sort);
+    const selectedSort = useSelector((state: any) => state.filter.sort);
     const dispatch = useDispatch();
 
-    const selectSortNameHandler = (obj) => {
+    const selectSortNameHandler = (obj: any) => {
         dispatch(setSelectedSort(obj));
         isOpen(false);
     };
 
-    const sortRef = useRef();
+    const sortRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleClick = (event) => {
+        const handleClick = (event: any) => {
             if (!event.composedPath().includes(sortRef.current)) {
                 isOpen(false);
             }

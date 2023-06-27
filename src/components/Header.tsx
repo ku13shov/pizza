@@ -5,9 +5,9 @@ import Logo from '../assets/img/pizza-logo.svg';
 import Search from './Search/Search';
 
 function Header() {
-    const { items, totalPrice } = useSelector((state) => state.cart);
+    const { items, totalPrice } = useSelector((state: any) => state.cart);
 
-    const cartCount = items.reduce((count, item) => {
+    const cartCount = items.reduce((count: number, item: any) => {
         return item.count + count;
     }, 0);
 

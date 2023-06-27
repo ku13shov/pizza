@@ -1,6 +1,11 @@
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-function Categories({ catIndex, onClickCat }) {
+type CategoriesProps = {
+    catIndex: number;
+    onClickCat: any
+}
+
+const Categories: React.FC<CategoriesProps> = ({ catIndex, onClickCat }) => {
     return (
         <div className="categories">
             <ul>

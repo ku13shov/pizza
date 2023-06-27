@@ -7,8 +7,8 @@ import CartEmpty from '../components/CartEmpty';
 
 function Cart() {
     const dispatch = useDispatch();
-    const {items, totalPrice} = useSelector((state) => state.cart);
-    const pizzaCount = items.reduce((sum, obj) => obj.count + sum, 0)
+    const {items, totalPrice} = useSelector((state: any) => state.cart);
+    const pizzaCount = items.reduce((sum: number, obj: any) => obj.count + sum, 0)
 
     const onClickClear = () => {
         dispatch(clearItems());
@@ -94,7 +94,7 @@ function Cart() {
                     </div>
                 </div>
                 <div className="content__items">
-                    {items.map((item) => (
+                    {items.map((item: any) => (
                         <CartItem key={item.id} {...item} />
                     ))}
                 </div>

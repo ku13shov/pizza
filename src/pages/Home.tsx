@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
@@ -9,18 +9,18 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
 import { SearchContext } from '../App';
-import { setCatIndex, setSelectedSort, setCurrentPage, setUrlParams } from '../redux/filterSlice';
+import { setCatIndex, setCurrentPage, setUrlParams } from '../redux/filterSlice';
 import { fetchPizza } from '../redux/pizzaSlice';
 import { sortNames } from '../components/Sort';
 
-function Home() {
+const Home: React.FC = () => {
     const {
         catIndex,
         sort: selectedSort,
         currentPage: pageNumber,
-    } = useSelector((state) => state.filter);
+    } = useSelector((state: any) => state.filter);
 
-    const { items: pizzas, status } = useSelector((state) => state.pizza);
+    const { items: pizzas, status } = useSelector((state: any) => state.pizza);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,20 +31,17 @@ function Home() {
     const { searchValue } = useContext(SearchContext);
 
     const getPizzas = async () => {
+        // @ts-ignore
         dispatch(fetchPizza({ catIndex, searchValue, selectedSort, pageNumber }));
 
         window.scrollTo(0, 0);
     };
 
-    const onClickCatHandler = (i) => {
+    const onClickCatHandler = (i: number) => {
         dispatch(setCatIndex(i));
     };
 
-    const isSelectedSortHandler = (obj) => {
-        dispatch(setSelectedSort(obj));
-    };
-
-    const setPageNumber = (i) => {
+    const setPageNumber = (i: number) => {
         dispatch(setCurrentPage(i));
     };
 
@@ -92,7 +89,7 @@ function Home() {
         <div className="container">
             <div className="content__top">
                 <Categories catIndex={catIndex} onClickCat={onClickCatHandler} />
-                <Sort onClickSort={(obj) => isSelectedSortHandler(obj)} />
+                <Sort  />
             </div>
             <h2 className="content__title">Все пиццы</h2>
 
@@ -111,7 +108,7 @@ function Home() {
                         ? [...new Array(4)].map((_, i) => {
                               return <Skeleton key={i} />;
                           })
-                        : pizzas.map((obj) => {
+                        : pizzas.map((obj: any) => {
                               return <PizzaBlock key={obj.id} {...obj} />;
                           })}
                 </div>

@@ -7,13 +7,21 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
 
-export const SearchContext = createContext({});
+type SearchContextProps = {
+    searchValue: string;
+    setSearchValue: any;
+}
+
+export const SearchContext = createContext<SearchContextProps>({
+    searchValue: '',
+    setSearchValue: () => {},
+  });
 
 const App: React.FC = () => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-        <SearchContext.Provider value={{searchValue, setSearchValue}}>
+        <SearchContext.Provider value={{ searchValue, setSearchValue }}>
             <div className="wrapper">
                 <Header />
 
@@ -27,6 +35,6 @@ const App: React.FC = () => {
             </div>
         </SearchContext.Provider>
     );
-}
+};
 
 export default App;

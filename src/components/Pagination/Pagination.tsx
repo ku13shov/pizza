@@ -3,10 +3,14 @@ import { useSelector } from 'react-redux';
 
 import styles from './Pagination.module.scss';
 
-function Pagination({setPageNumber}) {
+type PaginationProps = {
+    setPageNumber: any
+}
+
+const Pagination: React.FC<PaginationProps> = ({setPageNumber}) => {
     const {
         currentPage: pageNumber,
-    } = useSelector((state) => state.filter);
+    } = useSelector((state: any) => state.filter);
     
     return (
         <ReactPaginate

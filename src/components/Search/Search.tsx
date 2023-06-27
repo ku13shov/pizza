@@ -7,12 +7,12 @@ import { SearchContext } from '../../App';
 function Search() {
     const {setSearchValue} = useContext(SearchContext);
     const [localSearchValue, setLocalSearchValue] = useState('');
-    const inputRef = useRef();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const clearAndFocusInput = () => {
         setSearchValue('');
         setLocalSearchValue('');
-        inputRef.current.focus();
+        inputRef.current?.focus();
     };
 
     const updateSearchValue = useCallback(
@@ -22,7 +22,7 @@ function Search() {
         [],
     );
 
-    const onChangeInput = (e) => {
+    const onChangeInput = (e: any) => {
         setLocalSearchValue(e.target.value);
         updateSearchValue(e.target.value);
     }
