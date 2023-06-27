@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, MouseEventHandler } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setSelectedSort } from '../redux/filterSlice';
@@ -22,8 +22,8 @@ const Sort: React.FC = () => {
     const sortRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleClick = (event: any) => {
-            if (!event.composedPath().includes(sortRef.current)) {
+        const handleClick = (event: MouseEvent) => {
+            if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
                 isOpen(false);
             }
         };

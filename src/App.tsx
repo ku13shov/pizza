@@ -9,7 +9,7 @@ import Cart from './pages/Cart';
 
 type SearchContextProps = {
     searchValue: string;
-    setSearchValue: any;
+    setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const SearchContext = createContext<SearchContextProps>({

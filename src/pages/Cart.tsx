@@ -5,7 +5,7 @@ import CartItem from '../components/CartItem';
 import { clearItems } from '../redux/cartSlice';
 import CartEmpty from '../components/CartEmpty';
 
-function Cart() {
+const Cart: React.FC = () => {
     const dispatch = useDispatch();
     const {items, totalPrice} = useSelector((state: any) => state.cart);
     const pizzaCount = items.reduce((sum: number, obj: any) => obj.count + sum, 0)

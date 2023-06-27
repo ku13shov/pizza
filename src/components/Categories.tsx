@@ -2,7 +2,7 @@ const categories = ['Все', 'Мясные', 'Вегетарианская', '�
 
 type CategoriesProps = {
     catIndex: number;
-    onClickCat: any
+    onClickCat: (i: number) => void;
 }
 
 const Categories: React.FC<CategoriesProps> = ({ catIndex, onClickCat }) => {

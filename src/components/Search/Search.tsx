@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
 import { SearchContext } from '../../App';
 
-function Search() {
+const Search: React.FC = () => {
     const {setSearchValue} = useContext(SearchContext);
     const [localSearchValue, setLocalSearchValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -22,7 +22,7 @@ function Search() {
         [],
     );
 
-    const onChangeInput = (e: any) => {
+    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLocalSearchValue(e.target.value);
         updateSearchValue(e.target.value);
     }
