@@ -1,7 +1,13 @@
-import { useState, useEffect, useRef, MouseEventHandler } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setSelectedSort } from '../redux/filterSlice';
+import { RootState } from '../redux/store';
+
+type SelectSort = {
+    sortName: string;
+    sortTitle: string;
+}
 
 export const sortNames = [
     { sortName: 'популярности', sortTitle: 'rating' },
@@ -11,10 +17,10 @@ export const sortNames = [
 
 const Sort: React.FC = () => {
     const [open, isOpen] = useState(false);
-    const selectedSort = useSelector((state: any) => state.filter.sort);
+    const selectedSort = useSelector((state: RootState) => state.filter.sort);
     const dispatch = useDispatch();
 
-    const selectSortNameHandler = (obj: any) => {
+    const selectSortNameHandler = (obj: SelectSort) => {
         dispatch(setSelectedSort(obj));
         isOpen(false);
     };

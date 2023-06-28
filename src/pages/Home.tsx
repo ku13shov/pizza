@@ -12,15 +12,16 @@ import { SearchContext } from '../App';
 import { setCatIndex, setCurrentPage, setUrlParams } from '../redux/filterSlice';
 import { fetchPizza } from '../redux/pizzaSlice';
 import { sortNames } from '../components/Sort';
+import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
     const {
         catIndex,
         sort: selectedSort,
         currentPage: pageNumber,
-    } = useSelector((state: any) => state.filter);
+    } = useSelector((state: RootState) => state.filter);
 
-    const { items: pizzas, status } = useSelector((state: any) => state.pizza);
+    const { items: pizzas, status } = useSelector((state: RootState) => state.pizza);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -108,7 +109,7 @@ const Home: React.FC = () => {
                         ? [...new Array(4)].map((_, i) => {
                               return <Skeleton key={i} />;
                           })
-                        : pizzas.map((obj: any) => {
+                        : pizzas.map((obj) => {
                               return <PizzaBlock key={obj.id} {...obj} />;
                           })}
                 </div>

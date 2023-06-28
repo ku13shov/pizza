@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../components/CartItem';
 import { clearItems } from '../redux/cartSlice';
 import CartEmpty from '../components/CartEmpty';
+import { RootState } from '../redux/store';
 
 const Cart: React.FC = () => {
     const dispatch = useDispatch();
-    const {items, totalPrice} = useSelector((state: any) => state.cart);
-    const pizzaCount = items.reduce((sum: number, obj: any) => obj.count + sum, 0)
+    const {items, totalPrice} = useSelector((state: RootState) => state.cart);
+    const pizzaCount = items.reduce((sum, obj) => obj.count + sum, 0)
 
     const onClickClear = () => {
         dispatch(clearItems());
@@ -94,7 +95,7 @@ const Cart: React.FC = () => {
                     </div>
                 </div>
                 <div className="content__items">
-                    {items.map((item: any) => (
+                    {items.map((item) => (
                         <CartItem key={item.id} {...item} />
                     ))}
                 </div>

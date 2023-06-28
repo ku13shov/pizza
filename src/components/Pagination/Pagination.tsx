@@ -1,5 +1,6 @@
 import ReactPaginate from 'react-paginate';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 import styles from './Pagination.module.scss';
 
@@ -10,7 +11,7 @@ type PaginationProps = {
 const Pagination: React.FC<PaginationProps> = ({setPageNumber}) => {
     const {
         currentPage: pageNumber,
-    } = useSelector((state: any) => state.filter);
+    } = useSelector((state: RootState) => state.filter);
     
     return (
         <ReactPaginate
