@@ -13,16 +13,6 @@ type Params = {
     pageNumber: number;
 }
 
-export const fetchPizza = createAsyncThunk('pizza/fetchPizzaStatus', async (params: Params) => {
-    const { catIndex, searchValue, selectedSort, pageNumber } = params;
-    const { data } = await axios.get(
-        `https://647de329af984710854a8ac9.mockapi.io/items?${
-            catIndex === 0 ? '' : `category=${catIndex}`
-        }&title=${searchValue}&sortBy=${selectedSort.sortTitle}&order=asc&p=${pageNumber}&l=4`,
-    );
-    return data;
-});
-
 type PizzaItems = {
     id: number;
     title: string;
@@ -31,6 +21,16 @@ type PizzaItems = {
     sizes: number[];
     price: number;
 }
+
+export const fetchPizza = createAsyncThunk('pizza/fetchPizzaStatus', async (params: Params) => {
+    const { catIndex, searchValue, selectedSort, pageNumber } = params;
+    const { data } = await axios.get<PizzaItems[]>(
+        `https://647de329af984710854a8ac9.mockapi.io/items?${
+            catIndex === 0 ? '' : `category=${catIndex}`
+        }&title=${searchValue}&sortBy=${selectedSort.sortTitle}&order=asc&p=${pageNumber}&l=4`,
+    );
+    return data as PizzaItems[];
+});
 
 interface PizzaSliceState {
     items: PizzaItems[];
@@ -46,8 +46,8 @@ export const pizzaSlice = createSlice({
     name: 'pizza',
     initialState,
     reducers: {
-        setItems(state, actions) {
-            state.items = actions.payload;
+        setItems(state, action) {
+            state.items = action.payload;
         },
     },
 

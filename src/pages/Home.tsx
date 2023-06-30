@@ -1,5 +1,5 @@
 import { useEffect, useContext, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
@@ -12,7 +12,7 @@ import { SearchContext } from '../App';
 import { setCatIndex, setCurrentPage, setUrlParams } from '../redux/filterSlice';
 import { fetchPizza } from '../redux/pizzaSlice';
 import { sortNames } from '../components/Sort';
-import { RootState } from '../redux/store';
+import { RootState, useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
     const {
@@ -23,7 +23,7 @@ const Home: React.FC = () => {
 
     const { items: pizzas, status } = useSelector((state: RootState) => state.pizza);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const isUrlParams = useRef(false);
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
     const { searchValue } = useContext(SearchContext);
 
     const getPizzas = async () => {
-        // @ts-ignore
+        
         dispatch(fetchPizza({ catIndex, searchValue, selectedSort, pageNumber }));
 
         window.scrollTo(0, 0);
