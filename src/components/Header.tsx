@@ -4,9 +4,20 @@ import { useSelector } from 'react-redux';
 import Logo from '../assets/img/pizza-logo.svg';
 import Search from './Search/Search';
 import { RootState } from '../redux/store';
+import { useEffect, useRef } from 'react';
 
 const Header: React.FC = () => {
     const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+    const isMounted = useRef(false);
+
+    useEffect(() => {
+        if (isMounted.current) {
+            const localStorageItems = JSON.stringify(items);
+            localStorage.setItem('cart', localStorageItems);
+        }
+        
+        isMounted.current = true;
+    }, [items]);
 
     const location = useLocation();    
 
