@@ -13,6 +13,4 @@ export const getCartFromLS = () => {
         totalPrice: 0,
         items: []
     }
-
-    // return data ? JSON.parse(data) : [];
 }
