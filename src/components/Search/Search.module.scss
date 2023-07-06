@@ -1,17 +1,35 @@
 .wrapper {
     position: relative;
+
+    @media (max-width: 650px) {
+        margin-top: 30px;
+        order: 1;
+    }
 }
 
 .input {
     border: 1px solid rgba($color: #000000, $alpha: 0.2);
     border-radius: 10px;
     font-size: 16px;
-    padding: 10px 20px 10px 45px;
+    padding: 10px 40px 10px 45px;
     width: 300px;
     transition: all .2s linear;
 
     &:focus {
         border-color: rgba($color: #000000, $alpha: 0.5);
+    }
+
+    @media (max-width: 900px) {
+        width: 250px;
+    }
+
+    @media (max-width: 768px) {
+        width: 200px;
+        padding: 10px 35px 10px 35px;
+    }
+
+    @media (max-width: 650px) {
+        width: 250px;
     }
 }
 
@@ -23,6 +41,10 @@
     top: 50%;
     transform: translateY(-50%);
     opacity: .3;
+
+    @media (max-width: 768px) {
+        left: 10px;
+    }
 }
 
 .close {
@@ -37,5 +59,9 @@
 
     &:hover {
         opacity: .7;
+    }
+
+    @media (max-width: 768px) {
+        right: 10px;
     }
 }

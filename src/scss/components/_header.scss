@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
   }
 
   &__logo {
@@ -33,6 +34,7 @@
   @media (max-width: 650px) {
     .container {
       flex-direction: column;
+      gap: 0;
     }
 
     &__cart {
