@@ -14,4 +14,4 @@
 - React Content Loader (скелетон)
 - React Pagination (пагинация)
 - Lodash.Debounce
-- Хранение данных — [https://mockapi.io/](https://mockapi.io/)
+- Сайт для хранения данных — [https://mockapi.io/](https://mockapi.io/)
